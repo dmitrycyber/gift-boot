@@ -1,0 +1,19 @@
+plugins {
+//	id 'org.springframework.boot' version '2.4.2-SNAPSHOT'
+//	id 'java'
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+	implementation project(':core')
+
+}
+
+test {
+	useJUnitPlatform()
+}
