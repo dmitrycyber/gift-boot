@@ -10,7 +10,10 @@ repositories {
 }
 
 dependencies {
-
+	testCompile group: 'com.h2database', name: 'h2', version: '1.4.200'
+	testCompile group: 'org.mockito', name: 'mockito-core', version: '3.6.28'
+	testCompile group: 'org.mockito', name: 'mockito-junit-jupiter', version: '3.6.0'
+	testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.4.2'
 }
 
 test {
