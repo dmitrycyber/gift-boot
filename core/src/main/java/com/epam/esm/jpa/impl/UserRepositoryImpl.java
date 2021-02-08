@@ -1,6 +1,7 @@
 package com.epam.esm.jpa.impl;
 
 import com.epam.esm.jpa.UserRepository;
+import com.epam.esm.jpa.criteria.PaginationBuilder;
 import com.epam.esm.jpa.exception.UserNotFoundException;
 import com.epam.esm.model.entity.GiftCertificateEntity;
 import com.epam.esm.model.entity.UserEntity;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Repository
 @Slf4j
@@ -32,5 +35,14 @@ public class UserRepositoryImpl implements UserRepository {
         }
 
         return userEntity;
+    }
+
+    @Override
+    public List<UserEntity> findAll(Integer pageNumber, Integer pageSize) {
+        TypedQuery<UserEntity> query = entityManager.createQuery("select userEntity from UserEntity userEntity", UserEntity.class);
+
+        PaginationBuilder.addPagination(pageNumber, pageSize, query);
+
+        return query.getResultList();
     }
 }

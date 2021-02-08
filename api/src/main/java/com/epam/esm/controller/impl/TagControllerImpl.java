@@ -24,12 +24,12 @@ public class TagControllerImpl implements TagController {
 
     @Override
     @GetMapping
-    public ResponseEntity<List<TagDto>> allTags(@Valid TagSearchDto tagSearchDto) {
+    public ResponseEntity<List<TagDto>> allTags(@Valid TagSearchDto tagSearchDto, Integer pageNumber, Integer pageSize) {
         log.info("REQUEST SEARCH TAGS " + tagSearchDto);
 
         List<TagDto> tags = !tagSearchDto.equals(defaultTagSearchDto)
-                ? tagService.getTagByPartName(tagSearchDto)
-                : tagService.getAllTags();
+                ? tagService.getTagByPartName(tagSearchDto, pageNumber, pageSize)
+                : tagService.getAllTags(pageNumber, pageSize);
 
         return ResponseEntity.ok(tags);
     }

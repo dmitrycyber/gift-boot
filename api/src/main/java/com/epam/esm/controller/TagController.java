@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface TagController {
-    ResponseEntity<List<TagDto>> allTags(TagSearchDto tagSearchDto);
+    ResponseEntity<List<TagDto>> allTags(TagSearchDto tagSearchDto, Integer pageNumber, Integer pageSize);
 
     ResponseEntity<TagDto> tagById(Long id);
 

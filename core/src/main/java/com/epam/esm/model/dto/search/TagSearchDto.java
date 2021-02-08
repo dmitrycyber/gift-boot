@@ -13,6 +13,4 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class TagSearchDto implements Serializable {
     private String tagName;
-    private Integer pageNumber;
-    private Integer pageSize;
 }

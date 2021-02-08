@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
@@ -28,20 +27,14 @@ public class GiftControllerImpl implements GiftController {
 
     @Override
     @GetMapping
-    public ResponseEntity<List<GiftCertificateDto>> allGifts(@Valid GiftSearchDto giftSearchDto) {
-        try{
-            List<GiftCertificateDto> allGifts = !giftSearchDto.equals(defaultCustomSearchRequest)
-                    ? giftService.searchGifts(giftSearchDto)
-                    : giftService.getAllGifts();
+    public ResponseEntity<List<GiftCertificateDto>> allGifts(@Valid GiftSearchDto giftSearchDto, Integer pageNumber, Integer pageSize) {
 
-            addSelfLinksToList(allGifts);
-            return ResponseEntity.ok(allGifts);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
+        List<GiftCertificateDto> allGifts = !giftSearchDto.equals(defaultCustomSearchRequest)
+                ? giftService.searchGifts(giftSearchDto, pageNumber, pageSize)
+                : giftService.getAllGifts(pageNumber, pageSize);
 
+        addSelfLinksToList(allGifts);
+        return ResponseEntity.ok(allGifts);
     }
 
     @Override
@@ -50,7 +43,6 @@ public class GiftControllerImpl implements GiftController {
         GiftCertificateDto giftById = giftService.getGiftById(id);
 
         addSelfLinks(giftById);
-
         return ResponseEntity.ok(giftById);
     }
 

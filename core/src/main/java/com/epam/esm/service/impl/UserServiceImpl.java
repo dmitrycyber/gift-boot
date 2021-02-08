@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -35,9 +36,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto userProfile(Long userId) {
         UserEntity userEntity = userRepository.findById(userId);
-
-        log.info("USER FROM DAO " + userEntity);
-
         return EntityConverter.convertUserEntityToDto(userEntity);
+    }
+
+    @Override
+    public List<UserDto> findAll(Integer pageNumber, Integer pageSize) {
+        List<UserEntity> userEntityList = userRepository.findAll(pageNumber, pageSize);
+        return userEntityList.stream()
+                .map(EntityConverter::convertUserEntityToDto)
+                .collect(Collectors.toList());
     }
 }

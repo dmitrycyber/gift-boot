@@ -9,4 +9,6 @@ public interface UserController {
     UserDto register(UserDto userDto);
 
     UserDto userProfile(Long userId);
+
+    List<UserDto> allUsers(Integer pageNumber, Integer pageSize);
 }

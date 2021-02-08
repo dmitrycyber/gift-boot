@@ -22,15 +22,17 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final GiftCertificateRepository giftCertificateRepository;
 
-
     @Override
-    public List<OrderDto> findAll() {
-        return null;
+    public List<OrderDto> findAll(Integer pageNumber, Integer pageSize) {
+        List<OrderEntity> orderEntityList = orderRepository.findAll(pageNumber, pageSize);
+        return orderEntityList.stream()
+                .map(EntityConverter::convertOrderEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<OrderDto> findByUserId(Long userId) {
-        List<OrderEntity> orderEntityList = orderRepository.findByUserId(userId);
+    public List<OrderDto> findByUserId(Long userId, Integer pageNumber, Integer pageSize) {
+        List<OrderEntity> orderEntityList = orderRepository.findByUserId(userId, pageNumber, pageSize);
 
         return orderEntityList.stream()
                 .map(EntityConverter::convertOrderEntityToDto)

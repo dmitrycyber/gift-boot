@@ -26,12 +26,20 @@ public class OrderControllerImpl implements OrderController {
     @Override
     @GetMapping("/user/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<OrderDto> ordersByUserId(@PathVariable Long userId) {
-        return orderService.findByUserId(userId);
+    public List<OrderDto> userOrders(@PathVariable Long userId, Integer pageNumber, Integer pageSize) {
+        return orderService.findByUserId(userId, pageNumber, pageSize);
+    }
+
+    @Override
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<OrderDto> allOrders(Integer pageNumber, Integer pageSize) {
+        return orderService.findAll(pageNumber, pageSize);
     }
 
     @Override
     @GetMapping("/{orderId}")
+    @ResponseStatus(HttpStatus.OK)
     public OrderDto orderById(@PathVariable Long orderId) {
         return orderService.findById(orderId);
     }

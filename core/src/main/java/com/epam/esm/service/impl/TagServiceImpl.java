@@ -20,10 +20,20 @@ public class TagServiceImpl implements TagService {
 
     @Override
     @Transactional
-    public List<TagDto> getAllTags() {
-        List<TagEntity> allTags = tagRepository.findAllTags();
+    public List<TagDto> getAllTags(Integer pageNumber, Integer pageSize) {
+        List<TagEntity> allTags = tagRepository.findAllTags(pageNumber, pageSize);
 
         return allTags.stream()
+                .map(EntityConverter::convertTagEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public List<TagDto> getTagByPartName(TagSearchDto tagSearchDto, Integer pageNumber, Integer pageSize){
+        List<TagEntity> tagByName = tagRepository.findTagByPartName(tagSearchDto, pageNumber, pageSize);
+
+        return tagByName.stream()
                 .map(EntityConverter::convertTagEntityToDto)
                 .collect(Collectors.toList());
     }
@@ -43,15 +53,7 @@ public class TagServiceImpl implements TagService {
         return EntityConverter.convertTagEntityToDto(tagByName);
     }
 
-    @Override
-    @Transactional
-    public List<TagDto> getTagByPartName(TagSearchDto tagSearchDto){
-        List<TagEntity> tagByName = tagRepository.findTagByPartName(tagSearchDto);
 
-        return tagByName.stream()
-                .map(EntityConverter::convertTagEntityToDto)
-                .collect(Collectors.toList());
-    }
 
     @Override
     @Transactional

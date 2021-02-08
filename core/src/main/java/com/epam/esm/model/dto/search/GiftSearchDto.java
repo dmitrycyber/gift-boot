@@ -18,10 +18,4 @@ public class GiftSearchDto implements Serializable {
     private List<String> tagNamePrefixes;
     private String sortField;
     private String sortMethod;
-
-    @Min(value = 1)
-    private Integer pageNumber;
-
-    @Min(value = 1)
-    private Integer pageSize;
 }

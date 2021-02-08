@@ -1,6 +1,7 @@
 package com.epam.esm.jpa.impl;
 
 import com.epam.esm.jpa.OrderRepository;
+import com.epam.esm.jpa.criteria.PaginationBuilder;
 import com.epam.esm.jpa.exception.OrderNotFoundException;
 import com.epam.esm.jpa.exception.UserNotFoundException;
 import com.epam.esm.model.entity.GiftCertificateEntity;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.List;
 
@@ -25,19 +27,22 @@ public class OrderRepositoryImpl implements OrderRepository {
     private EntityManager entityManager;
 
     @Override
-    public List<OrderEntity> findAll() {
-        return entityManager.createQuery("select orderEntity from OrderEntity orderEntity", OrderEntity.class).getResultList();
+    public List<OrderEntity> findAll(Integer pageNumber, Integer pageSize) {
+        TypedQuery<OrderEntity> query = entityManager.createQuery("select orderEntity from OrderEntity orderEntity", OrderEntity.class);
+
+        PaginationBuilder.addPagination(pageNumber, pageSize, query);
+
+        return query.getResultList();
     }
 
     @Override
-    public List<OrderEntity> findByUserId(Long userId) {
-        List<OrderEntity> resultList = entityManager.createQuery("select oe from OrderEntity oe WHERE oe.userEntity.id = :userId", OrderEntity.class)
-                .setParameter("userId", userId)
-                .getResultList();
+    public List<OrderEntity> findByUserId(Long userId, Integer pageNumber, Integer pageSize) {
+        TypedQuery<OrderEntity> query = entityManager.createQuery("select oe from OrderEntity oe WHERE oe.userEntity.id = :userId", OrderEntity.class)
+                .setParameter("userId", userId);
 
-        log.info("USER BY ID " + resultList);
+        PaginationBuilder.addPagination(pageNumber, pageSize, query);
 
-        return resultList;
+        return query.getResultList();
     }
 
     @Override

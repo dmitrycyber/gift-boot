@@ -1,17 +1,15 @@
 package com.epam.esm.jpa.impl;
 
 import com.epam.esm.jpa.TagRepository;
+import com.epam.esm.jpa.criteria.PaginationBuilder;
 import com.epam.esm.jpa.criteria.TagCriteriaBuilder;
-import com.epam.esm.jpa.exception.GiftNotFoundException;
 import com.epam.esm.jpa.exception.TagNotFoundException;
 import com.epam.esm.jpa.exception.UserNotFoundException;
 import com.epam.esm.model.dto.search.TagSearchDto;
-import com.epam.esm.model.entity.OrderEntity;
 import com.epam.esm.model.entity.TagEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -30,8 +28,21 @@ public class TagRepositoryImpl implements TagRepository {
     private EntityManager entityManager;
 
     @Override
-    public List<TagEntity> findAllTags() {
-        return entityManager.createQuery("select tagEntity from TagEntity tagEntity", TagEntity.class).getResultList();
+    public List<TagEntity> findAllTags(Integer pageNumber, Integer pageSize) {
+        TypedQuery<TagEntity> query = entityManager.createQuery("select tagEntity from TagEntity tagEntity", TagEntity.class);
+        PaginationBuilder.addPagination(pageNumber, pageSize, query);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<TagEntity> findTagByPartName(TagSearchDto tagSearchDto, Integer pageNumber, Integer pageSize) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<TagEntity> criteriaQuery = tagCriteriaBuilder.build(criteriaBuilder, tagSearchDto.getTagName());
+
+        TypedQuery<TagEntity> query = entityManager.createQuery(criteriaQuery);
+
+        PaginationBuilder.addPagination(pageNumber, pageSize, query);
+        return query.getResultList();
     }
 
     @Override
@@ -55,23 +66,6 @@ public class TagRepositoryImpl implements TagRepository {
         }
         return tagByName.get();
 
-    }
-
-    @Override
-    public List<TagEntity> findTagByPartName(TagSearchDto tagSearchDto) {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<TagEntity> criteriaQuery = tagCriteriaBuilder.build(criteriaBuilder, tagSearchDto.getTagName());
-
-        TypedQuery<TagEntity> query = entityManager.createQuery(criteriaQuery);
-
-
-        Integer pageNumber = tagSearchDto.getPageNumber();
-        Integer pageSize = tagSearchDto.getPageSize();
-        if (pageNumber != null && pageSize != null) {
-            query.setFirstResult((pageNumber - 1) * pageSize);
-            query.setMaxResults(pageSize);
-        }
-        return query.getResultList();
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.epam.esm.jpa.impl;
 
 import com.epam.esm.jpa.GiftCertificateRepository;
 import com.epam.esm.jpa.criteria.GiftCriteriaBuilder;
+import com.epam.esm.jpa.criteria.PaginationBuilder;
 import com.epam.esm.jpa.exception.UserNotFoundException;
 import com.epam.esm.model.dto.search.GiftSearchDto;
 import com.epam.esm.model.entity.GiftCertificateEntity;
@@ -24,22 +25,21 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
     private EntityManager entityManager;
 
     @Override
-    public List<GiftCertificateEntity> findAll() {
-        return entityManager.createQuery("select giftCertificate from GiftCertificateEntity giftCertificate", GiftCertificateEntity.class).getResultList();
+    public List<GiftCertificateEntity> findAll(Integer pageNumber, Integer pageSize) {
+        TypedQuery<GiftCertificateEntity> query = entityManager.createQuery("select giftCertificate from GiftCertificateEntity giftCertificate", GiftCertificateEntity.class);
+
+        PaginationBuilder.addPagination(pageNumber, pageSize, query);
+
+        return query.getResultList();
     }
 
     @Override
-    public List<GiftCertificateEntity> findAndSortGifts(GiftSearchDto giftSearchDto) {
+    public List<GiftCertificateEntity> findAndSortGifts(GiftSearchDto giftSearchDto, Integer pageNumber, Integer pageSize) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<GiftCertificateEntity> criteriaQuery = giftCriteriaBuilder.build(criteriaBuilder, giftSearchDto);
         TypedQuery<GiftCertificateEntity> query = entityManager.createQuery(criteriaQuery);
 
-        Integer pageNumber = giftSearchDto.getPageNumber();
-        Integer pageSize = giftSearchDto.getPageSize();
-        if (pageNumber != null && pageSize != null){
-            query.setFirstResult((pageNumber-1) * pageSize);
-            query.setMaxResults(pageSize);
-        }
+        PaginationBuilder.addPagination(pageNumber, pageSize, query);
 
         return query.getResultList();
     }

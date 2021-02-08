@@ -12,7 +12,7 @@ public interface TagRepository {
      * @return List TagEntity
      * if fount no tags - return empty list
      */
-    List<TagEntity> findAllTags();
+    List<TagEntity> findAllTags(Integer pageNumber, Integer pageSize);
 
     /**
      * Find tags by tag id
@@ -34,7 +34,7 @@ public interface TagRepository {
      * @param tagSearchDto
      * @return List TagEntity which matches the search conditions
      */
-    List<TagEntity> findTagByPartName(TagSearchDto tagSearchDto);
+    List<TagEntity> findTagByPartName(TagSearchDto tagSearchDto, Integer pageNumber, Integer pageSize);
 
     /**
      * Create tag

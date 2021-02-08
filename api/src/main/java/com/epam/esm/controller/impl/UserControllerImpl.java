@@ -36,4 +36,11 @@ public class UserControllerImpl implements UserController {
     public UserDto userProfile(@PathVariable Long id) {
         return userService.userProfile(id);
     }
+
+    @Override
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserDto> allUsers(Integer pageNumber, Integer pageSize) {
+        return userService.findAll(pageNumber, pageSize);
+    }
 }

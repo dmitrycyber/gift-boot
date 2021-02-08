@@ -27,9 +27,18 @@ public class GiftServiceImpl implements GiftService {
 
     @Override
     @Transactional
-    public List<GiftCertificateDto> getAllGifts() {
-        List<GiftCertificateEntity> giftCertificateEntityList = giftCertificateRepository.findAll();
+    public List<GiftCertificateDto> getAllGifts(Integer pageNumber, Integer pageSize) {
+        List<GiftCertificateEntity> giftCertificateEntityList = giftCertificateRepository.findAll(pageNumber, pageSize);
         return giftCertificateEntityList.stream()
+                .map(EntityConverter::convertGiftEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public List<GiftCertificateDto> searchGifts(GiftSearchDto customSearchRequest, Integer pageNumber, Integer pageSize) {
+        List<GiftCertificateEntity> giftList = giftCertificateRepository.findAndSortGifts(customSearchRequest, pageNumber, pageSize);
+        return giftList.stream()
                 .map(EntityConverter::convertGiftEntityToDto)
                 .collect(Collectors.toList());
     }
@@ -42,15 +51,6 @@ public class GiftServiceImpl implements GiftService {
         checkIfGiftNotFount(giftById);
 
         return EntityConverter.convertGiftEntityToDto(giftById);
-    }
-
-    @Override
-    @Transactional
-    public List<GiftCertificateDto> searchGifts(GiftSearchDto customSearchRequest) {
-        List<GiftCertificateEntity> giftList = giftCertificateRepository.findAndSortGifts(customSearchRequest);
-        return giftList.stream()
-                .map(EntityConverter::convertGiftEntityToDto)
-                .collect(Collectors.toList());
     }
 
     @Override

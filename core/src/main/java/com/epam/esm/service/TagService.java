@@ -7,10 +7,10 @@ import com.epam.esm.model.dto.search.TagSearchDto;
 import java.util.List;
 
 public interface TagService {
-    List<TagDto> getAllTags();
+    List<TagDto> getAllTags(Integer pageNumber, Integer pageSize);
     TagDto getTagById(Long tagId);
     TagDto getTagByName(String tagName);
-    List<TagDto> getTagByPartName(TagSearchDto tagSearchDto);
+    List<TagDto> getTagByPartName(TagSearchDto tagSearchDto, Integer pageNumber, Integer pageSize);
     TagDto createTag(TagDto tagDto);
     void deleteTagById(Long tagId);
 

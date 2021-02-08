@@ -12,7 +12,7 @@ public interface GiftCertificateRepository {
      * @return List GiftCertificateEntity
      * if fount no gifts - return empty list
      */
-    List<GiftCertificateEntity> findAll();
+    List<GiftCertificateEntity> findAll(Integer pageNumber, Integer pageSize);
 
 
     /**
@@ -20,7 +20,7 @@ public interface GiftCertificateRepository {
      * @param giftSearchDto
      * @return List GiftCertificateEntity which matches the search conditions
      */
-    List<GiftCertificateEntity> findAndSortGifts(GiftSearchDto giftSearchDto);
+    List<GiftCertificateEntity> findAndSortGifts(GiftSearchDto giftSearchDto, Integer pageNumber, Integer pageSize);
 
 
     /**
