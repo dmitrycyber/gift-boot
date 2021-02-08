@@ -1,5 +1,7 @@
 package com.epam.esm.config;
 
+import com.epam.esm.jpa.criteria.GiftCriteriaBuilder;
+import com.epam.esm.jpa.criteria.TagCriteriaBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -82,5 +84,15 @@ public class SpringConfig implements WebMvcConfigurer {
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
         bean.setMessageInterpolator(interpolator());
         return bean;
+    }
+
+    @Bean
+    public GiftCriteriaBuilder giftCriteriaBuilder(){
+        return new GiftCriteriaBuilder();
+    }
+
+    @Bean
+    public TagCriteriaBuilder tagCriteriaBuilder(){
+        return new TagCriteriaBuilder();
     }
 }

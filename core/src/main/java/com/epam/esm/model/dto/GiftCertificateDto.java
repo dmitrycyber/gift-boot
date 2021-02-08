@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.openapitools.jackson.nullable.JsonNullable;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -20,7 +20,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GiftCertificateDto implements Serializable {
+public class GiftCertificateDto extends RepresentationModel<GiftCertificateDto> implements Serializable {
     @Null
     private Long id;
 

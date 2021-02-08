@@ -3,7 +3,7 @@ package com.epam.esm.service.impl;
 import com.epam.esm.jpa.GiftCertificateRepository;
 import com.epam.esm.jpa.TagRepository;
 import com.epam.esm.jpa.exception.GiftNotFoundException;
-import com.epam.esm.model.dto.CustomSearchRequestDto;
+import com.epam.esm.model.dto.search.GiftSearchDto;
 import com.epam.esm.model.dto.GiftCertificateDto;
 import com.epam.esm.model.entity.GiftCertificateEntity;
 import com.epam.esm.model.entity.TagEntity;
@@ -44,16 +44,13 @@ public class GiftServiceImpl implements GiftService {
         return EntityConverter.convertGiftEntityToDto(giftById);
     }
 
-
-
     @Override
     @Transactional
-    public List<GiftCertificateDto> searchGifts(CustomSearchRequestDto customSearchRequest) {
-//        List<GiftCertificateEntity> giftList = giftDao.findAndSortGifts(customSearchRequest);
-//        return giftList.stream()
-//                .map(EntityConverter::convertGiftEntityToDto)
-//                .collect(Collectors.toList());
-        return null;
+    public List<GiftCertificateDto> searchGifts(GiftSearchDto customSearchRequest) {
+        List<GiftCertificateEntity> giftList = giftCertificateRepository.findAndSortGifts(customSearchRequest);
+        return giftList.stream()
+                .map(EntityConverter::convertGiftEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -103,9 +100,9 @@ public class GiftServiceImpl implements GiftService {
         Set<TagEntity> savedTags = new HashSet<>();
 
         for(TagEntity tagEntity : tagEntities){
-            TagEntity tagEntityByName = tagRepository.findTagEntityByName(tagEntity.getName());
+            TagEntity tagEntityByName = tagRepository.findTagByName(tagEntity.getName());
             if (tagEntityByName == null){
-                tagRepository.save(tagEntity);
+                tagRepository.createTag(tagEntity);
                 savedTags.add(tagEntity);
             }else {
                 savedTags.add(tagEntityByName);

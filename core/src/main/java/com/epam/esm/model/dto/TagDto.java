@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
@@ -14,7 +15,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TagDto implements Serializable {
+public class TagDto extends RepresentationModel<TagDto> implements Serializable {
     @Null
     private Long id;
 

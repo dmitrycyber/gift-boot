@@ -2,5 +2,12 @@ package com.epam.esm.jpa;
 
 import com.epam.esm.model.entity.OrderEntity;
 
-public interface OrderRepository extends BaseRepository<OrderEntity, Long> {
+import java.util.List;
+
+public interface OrderRepository {
+    List<OrderEntity> findAll();
+    List<OrderEntity> findByUserId(Long userId);
+    OrderEntity findById(Long orderId);
+    OrderEntity createOrder(OrderEntity orderEntity);
+
 }

@@ -1,0 +1,36 @@
+package com.epam.esm.jpa.impl;
+
+import com.epam.esm.jpa.UserRepository;
+import com.epam.esm.jpa.exception.UserNotFoundException;
+import com.epam.esm.model.entity.GiftCertificateEntity;
+import com.epam.esm.model.entity.UserEntity;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+@Repository
+@Slf4j
+public class UserRepositoryImpl implements UserRepository {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    public UserEntity register(UserEntity userEntity) {
+        entityManager.persist(userEntity);
+        return userEntity;
+    }
+
+    @Override
+    public UserEntity findById(Long userId) {
+        UserEntity userEntity = entityManager.find(UserEntity.class, userId);
+
+        if (userEntity == null){
+            throw new UserNotFoundException(userId.toString());
+        }
+
+        return userEntity;
+    }
+}

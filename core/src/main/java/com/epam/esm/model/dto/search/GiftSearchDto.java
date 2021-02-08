@@ -1,20 +1,27 @@
-package com.epam.esm.model.dto;
+package com.epam.esm.model.dto.search;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import javax.validation.constraints.Min;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomSearchRequestDto implements Serializable {
+public class GiftSearchDto implements Serializable {
     private String namePrefix;
     private String descriptionPrefix;
-    private String tagNamePrefix;
+    private List<String> tagNamePrefixes;
     private String sortField;
     private String sortMethod;
+
+    @Min(value = 1)
+    private Integer pageNumber;
+
+    @Min(value = 1)
+    private Integer pageSize;
 }
