@@ -26,7 +26,8 @@ import java.util.List;
 @Slf4j
 public class TagControllerImpl implements TagController {
     private final TagService tagService;
-    private final TagSearchDto defaultTagSearchDto = TagSearchDto.builder().build();
+    private final TagSearchDto defaultTagSearchDto = TagSearchDto.builder()
+            .build();
 
     @Override
     @GetMapping

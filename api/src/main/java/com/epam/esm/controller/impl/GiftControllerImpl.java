@@ -31,7 +31,8 @@ import java.util.Set;
 @Slf4j
 public class GiftControllerImpl implements GiftController {
     private final GiftService giftService;
-    private final GiftSearchDto defaultCustomSearchRequest = GiftSearchDto.builder().build();
+    private final GiftSearchDto defaultCustomSearchRequest = GiftSearchDto.builder()
+            .build();
 
     @Override
     @GetMapping
