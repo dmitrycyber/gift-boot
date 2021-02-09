@@ -7,9 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
 import org.openapitools.jackson.nullable.JsonNullableModule;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,16 +28,6 @@ import java.util.Locale;
         "classpath:application.properties"})
 @EnableTransactionManagement
 public class SpringConfig implements WebMvcConfigurer {
-    private final ApplicationContext applicationContext;
-
-    @Value("${message-source.basename}")
-    private String messageSourceBaseName;
-
-    @Autowired
-    public SpringConfig(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
-
     @Bean
     public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -56,7 +44,7 @@ public class SpringConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public MessageSource messageSource() {
+    public MessageSource messageSource(@Value("${message-source.basename}") String messageSourceBaseName) {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename(messageSourceBaseName);
         messageSource.setDefaultEncoding(StandardCharsets.UTF_8.name());
@@ -71,19 +59,19 @@ public class SpringConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public MessageSourceResourceBundleLocator resourceBundle() {
-        return new MessageSourceResourceBundleLocator(messageSource());
+    public MessageSourceResourceBundleLocator resourceBundle(MessageSource messageSource) {
+        return new MessageSourceResourceBundleLocator(messageSource);
     }
 
     @Bean
-    public ResourceBundleMessageInterpolator interpolator() {
-        return new ResourceBundleMessageInterpolator(resourceBundle());
+    public ResourceBundleMessageInterpolator interpolator(MessageSourceResourceBundleLocator resourceBundle) {
+        return new ResourceBundleMessageInterpolator(resourceBundle);
     }
 
     @Bean
-    public LocalValidatorFactoryBean validator() {
+    public LocalValidatorFactoryBean validator(ResourceBundleMessageInterpolator interpolator) {
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
-        bean.setMessageInterpolator(interpolator());
+        bean.setMessageInterpolator(interpolator);
         return bean;
     }
 
