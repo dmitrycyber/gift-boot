@@ -86,7 +86,15 @@ public class GiftServiceImpl implements GiftService {
             giftEntityToSave.setDuration(giftCertificateDto.getDuration());
         }
 
+        Set<TagEntity> tagsToSave = giftCertificateDto.getTags().stream()
+                .map(EntityConverter::convertTagDtoToEntity)
+                .collect(Collectors.toSet());
+
+        Set<TagEntity> savedTags = createTagsIfNeeded(tagsToSave, giftEntityToSave);
+
         GiftCertificateEntity savedGiftEntity = giftCertificateRepository.updateGift(giftEntityToSave);
+        savedGiftEntity.setTagEntities(savedTags);
+
         return EntityConverter.convertGiftEntityToDto(savedGiftEntity);
     }
 

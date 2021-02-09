@@ -7,6 +7,7 @@ import com.epam.esm.jpa.exception.UserNotFoundException;
 import com.epam.esm.model.dto.search.GiftSearchDto;
 import com.epam.esm.model.entity.GiftCertificateEntity;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class GiftCertificateRepositoryImpl implements GiftCertificateRepository {
     private final GiftCriteriaBuilder giftCriteriaBuilder;
 
@@ -56,6 +58,8 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
     @Override
     public GiftCertificateEntity createGift(GiftCertificateEntity giftCertificateEntity) {
         entityManager.persist(giftCertificateEntity);
+        log.info("SAVED ENTITY " + giftCertificateEntity);
+
         return giftCertificateEntity;
     }
 

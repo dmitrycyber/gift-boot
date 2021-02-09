@@ -9,6 +9,8 @@ public interface GiftCertificateRepository {
 
     /**
      * Find all gift certificates
+     * @param pageNumber pagination
+     * @param pageSize pagination
      * @return List GiftCertificateEntity
      * if fount no gifts - return empty list
      */
@@ -17,7 +19,9 @@ public interface GiftCertificateRepository {
 
     /**
      * Find gift certificate by criteria
-     * @param giftSearchDto
+     * @param giftSearchDto search criteria
+     * @param pageNumber pagination
+     * @param pageSize pagination
      * @return List GiftCertificateEntity which matches the search conditions
      */
     List<GiftCertificateEntity> findAndSortGifts(GiftSearchDto giftSearchDto, Integer pageNumber, Integer pageSize);
@@ -25,7 +29,7 @@ public interface GiftCertificateRepository {
 
     /**
      * Find gift certificate by gift id
-     * @param id
+     * @param id gift id
      * @return GiftCertificateEntity
      * @throws com.epam.esm.jpa.exception.GiftNotFoundException if fount no gifts
      */
@@ -33,14 +37,14 @@ public interface GiftCertificateRepository {
 
     /**
      * Create gift
-     * @param giftCertificateEntity
+     * @param giftCertificateEntity entity to save
      * @return created gift
      */
     GiftCertificateEntity createGift(GiftCertificateEntity giftCertificateEntity);
 
     /**
      * Update gift
-     * @param giftCertificateEntity
+     * @param giftCertificateEntity entity to update
      * @return updated gift
      * @throws com.epam.esm.jpa.exception.GiftNotFoundException if fount no gifts
      */
@@ -48,7 +52,7 @@ public interface GiftCertificateRepository {
 
     /**
      * Delete gift by id
-     * @param id
+     * @param id gift id
      * @throws com.epam.esm.jpa.exception.GiftNotFoundException if fount no gifts
      */
     void deleteGift(Long id);

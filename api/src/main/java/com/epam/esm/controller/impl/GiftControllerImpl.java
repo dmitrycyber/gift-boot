@@ -68,7 +68,6 @@ public class GiftControllerImpl implements GiftController {
         GiftCertificateDto updatedGift = giftService.updateGift(giftCertificateDto);
 
         addSelfLinks(updatedGift);
-
         return ResponseEntity.ok(updatedGift);
     }
 

@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final OrderRepository orderRepository;
 
     @Override
     @Transactional

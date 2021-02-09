@@ -1,18 +1,21 @@
 package com.epam.esm.controller.impl;
 
 import com.epam.esm.controller.TagController;
+import com.epam.esm.model.dto.GiftCertificateDto;
 import com.epam.esm.model.dto.TagDto;
 import com.epam.esm.model.dto.search.GiftSearchDto;
 import com.epam.esm.model.dto.search.TagSearchDto;
 import com.epam.esm.service.TagService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/tags")
@@ -30,6 +33,7 @@ public class TagControllerImpl implements TagController {
         List<TagDto> tags = !tagSearchDto.equals(defaultTagSearchDto)
                 ? tagService.getTagByPartName(tagSearchDto, pageNumber, pageSize)
                 : tagService.getAllTags(pageNumber, pageSize);
+        addSelfLinksToList(tags);
 
         return ResponseEntity.ok(tags);
     }
@@ -40,15 +44,16 @@ public class TagControllerImpl implements TagController {
             @PathVariable Long id
     ) {
         TagDto tagById = tagService.getTagById(id);
+        addSelfLinks(tagById);
         return ResponseEntity.ok(tagById);
     }
 
     @Override
     @PostMapping
     public ResponseEntity<TagDto> createTag(@RequestBody @Valid TagDto tagDto) {
-        TagDto tag = tagService.createTag(tagDto);
-
-        return ResponseEntity.ok(tag);
+        TagDto createdTag = tagService.createTag(tagDto);
+        addSelfLinks(createdTag);
+        return ResponseEntity.ok(createdTag);
     }
 
     @Override
@@ -63,6 +68,22 @@ public class TagControllerImpl implements TagController {
     @GetMapping("/user/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public TagDto findMostWidelyUsedUserTag(@PathVariable Long userId) {
-        return tagService.findMostWidelyUsedUserTag(userId);
+        TagDto tagDto = tagService.findMostWidelyUsedUserTag(userId);
+        addSelfLinks(tagDto);
+        return tagDto;
+    }
+
+    private void addSelfLinksToList(List<TagDto> tagDtos) {
+        for (TagDto tagDto : tagDtos) {
+            addSelfLinks(tagDto);
+        }
+    }
+
+    private void addSelfLinks(TagDto tagDto) {
+        tagDto.add(WebMvcLinkBuilder
+                .linkTo(WebMvcLinkBuilder
+                        .methodOn(TagControllerImpl.class)
+                        .tagById(tagDto.getId()))
+                .withSelfRel());
     }
 }

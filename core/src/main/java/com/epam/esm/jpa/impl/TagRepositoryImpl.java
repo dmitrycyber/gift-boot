@@ -10,6 +10,8 @@ import com.epam.esm.model.entity.TagEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.GetMapping;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -28,6 +30,7 @@ public class TagRepositoryImpl implements TagRepository {
     private EntityManager entityManager;
 
     @Override
+    @GetMapping
     public List<TagEntity> findAllTags(Integer pageNumber, Integer pageSize) {
         TypedQuery<TagEntity> query = entityManager.createQuery("select tagEntity from TagEntity tagEntity", TagEntity.class);
         PaginationBuilder.addPagination(pageNumber, pageSize, query);
@@ -61,11 +64,7 @@ public class TagRepositoryImpl implements TagRepository {
                 .getResultStream()
                 .findFirst();
 
-        if (!tagByName.isPresent()) {
-            throw new TagNotFoundException();
-        }
-        return tagByName.get();
-
+        return tagByName.orElse(null);
     }
 
     @Override
