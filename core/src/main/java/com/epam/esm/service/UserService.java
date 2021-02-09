@@ -1,7 +1,6 @@
 package com.epam.esm.service;
 
 import com.epam.esm.model.dto.user.UserDto;
-
 import java.util.List;
 
 public interface UserService {

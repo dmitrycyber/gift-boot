@@ -32,5 +32,4 @@ public interface GiftController {
 
     @ApiOperation(value = "Api v1. Delete gift by id")
     void deleteGift(Long id);
-
 }

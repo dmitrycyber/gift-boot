@@ -1,11 +1,9 @@
 package com.epam.esm.jpa;
 
 import com.epam.esm.model.entity.OrderEntity;
-
 import java.util.List;
 
 public interface OrderRepository {
-
     /**
      * Find all orders
      * @return List Order Entity
@@ -37,5 +35,4 @@ public interface OrderRepository {
      * @return created order
      */
     OrderEntity createOrder(OrderEntity orderEntity);
-
 }

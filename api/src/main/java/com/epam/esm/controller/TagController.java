@@ -6,7 +6,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.http.ResponseEntity;
-
 import java.util.List;
 
 @Api(tags = "Tag Controller")
@@ -31,8 +30,4 @@ public interface TagController {
 
     @ApiOperation(value = "Api v1. find most widely user tag with the highest cost")
     TagDto findMostWidelyUsedUserTag(Long userId);
-
-
-
-
 }

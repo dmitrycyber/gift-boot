@@ -2,11 +2,9 @@ package com.epam.esm.jpa;
 
 import com.epam.esm.model.dto.search.GiftSearchDto;
 import com.epam.esm.model.entity.GiftCertificateEntity;
-
 import java.util.List;
 
 public interface GiftCertificateRepository {
-
     /**
      * Find all gift certificates
      * @param pageNumber pagination

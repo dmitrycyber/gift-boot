@@ -1,8 +1,6 @@
 package com.epam.esm.service.impl;
 
-import com.epam.esm.jpa.OrderRepository;
 import com.epam.esm.jpa.UserRepository;
-import com.epam.esm.model.dto.order.OrderDto;
 import com.epam.esm.model.dto.user.UserDto;
 import com.epam.esm.model.entity.UserEntity;
 import com.epam.esm.service.UserService;
@@ -11,9 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service

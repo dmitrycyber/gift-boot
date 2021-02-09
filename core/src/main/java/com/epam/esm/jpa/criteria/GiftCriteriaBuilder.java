@@ -4,10 +4,14 @@ import com.epam.esm.model.dto.search.GiftSearchDto;
 import com.epam.esm.model.entity.GiftCertificateEntity;
 import com.epam.esm.model.entity.TagEntity;
 import com.epam.esm.util.SearchConstants;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Order;
 import java.util.ArrayList;
 import java.util.List;
-import static com.epam.esm.util.SearchConstants.NAME_FIELD;
 
 public class GiftCriteriaBuilder {
     public CriteriaQuery<GiftCertificateEntity> build(CriteriaBuilder criteriaBuilder, GiftSearchDto giftCertificateQueryParameter) {
@@ -33,7 +37,7 @@ public class GiftCriteriaBuilder {
 
         List<String> tagNamePrefixes = giftCertificateQueryParameter.getTagNamePrefixes();
         if (tagNamePrefixes != null) {
-            for (String tagNamePrefix : tagNamePrefixes){
+            for (String tagNamePrefix : tagNamePrefixes) {
                 Join<GiftCertificateEntity, TagEntity> tagJoin = giftCertificateRoot.join(DaoConstants.FIELD_TAG_ENTITIES);
                 Predicate predicate = criteriaBuilder.equal(tagJoin.get(DaoConstants.FIELD_NAME), tagNamePrefix);
                 predicateList.add(predicate);
@@ -49,7 +53,7 @@ public class GiftCriteriaBuilder {
         Order order = null;
 
         if (sortField != null && sortMethod != null) {
-            if (sortField.equals(NAME_FIELD)) {
+            if (sortField.equals(SearchConstants.NAME_FIELD)) {
                 columnNameToSort = DaoConstants.FIELD_NAME;
                 if (sortMethod.equals(SearchConstants.ASC_METHOD_SORT)) {
                     order = criteriaBuilder.asc(giftCertificateRoot.get(columnNameToSort));

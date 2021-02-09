@@ -3,19 +3,13 @@ package com.epam.esm.jpa.impl;
 import com.epam.esm.jpa.OrderRepository;
 import com.epam.esm.jpa.criteria.PaginationBuilder;
 import com.epam.esm.jpa.exception.OrderNotFoundException;
-import com.epam.esm.jpa.exception.UserNotFoundException;
-import com.epam.esm.model.entity.GiftCertificateEntity;
 import com.epam.esm.model.entity.OrderEntity;
-import com.epam.esm.model.entity.TagEntity;
-import com.epam.esm.model.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
 import java.util.List;
 
 @Repository
@@ -48,7 +42,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Override
     public OrderEntity findById(Long orderId) {
         OrderEntity orderEntity = entityManager.find(OrderEntity.class, orderId);
-        if (orderEntity == null){
+        if (orderEntity == null) {
             throw new OrderNotFoundException(orderId.toString());
         }
         return orderEntity;

@@ -2,7 +2,6 @@ package com.epam.esm.service;
 
 import com.epam.esm.model.dto.search.GiftSearchDto;
 import com.epam.esm.model.dto.GiftCertificateDto;
-
 import java.util.List;
 
 public interface GiftService {

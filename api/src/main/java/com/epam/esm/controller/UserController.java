@@ -4,8 +4,6 @@ import com.epam.esm.model.dto.user.UserDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.http.ResponseEntity;
-
 import java.util.List;
 
 @Api(tags = "User Controller")

@@ -2,8 +2,6 @@ package com.epam.esm.controller.impl;
 
 import com.epam.esm.controller.UserController;
 import com.epam.esm.model.dto.CreatingDto;
-import com.epam.esm.model.dto.GiftCertificateDto;
-import com.epam.esm.model.dto.TagDto;
 import com.epam.esm.model.dto.order.OrderDto;
 import com.epam.esm.model.dto.user.UserDto;
 import com.epam.esm.service.UserService;
@@ -11,11 +9,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;

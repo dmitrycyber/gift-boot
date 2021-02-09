@@ -1,7 +1,10 @@
 package com.epam.esm.jpa.criteria;
 
 import com.epam.esm.model.entity.TagEntity;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +23,6 @@ public class TagCriteriaBuilder {
         }
 
         criteriaQuery.select(tagEntityRoot).where(predicateList.toArray(new Predicate[0]));
-
         return criteriaQuery;
     }
 }

@@ -1,8 +1,16 @@
 package com.epam.esm.model.entity;
 
-import lombok.*;
-
-import javax.persistence.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import java.sql.Timestamp;
 import java.util.Set;
 

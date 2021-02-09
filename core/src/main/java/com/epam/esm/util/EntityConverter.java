@@ -8,12 +8,8 @@ import com.epam.esm.model.entity.GiftCertificateEntity;
 import com.epam.esm.model.entity.OrderEntity;
 import com.epam.esm.model.entity.TagEntity;
 import com.epam.esm.model.entity.UserEntity;
-import org.openapitools.jackson.nullable.JsonNullable;
-
-import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;

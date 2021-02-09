@@ -1,11 +1,9 @@
 package com.epam.esm.jpa;
 
 import com.epam.esm.model.entity.UserEntity;
-
 import java.util.List;
 
 public interface UserRepository {
-
     /**
      * Create user
      * @param userEntity entity to save

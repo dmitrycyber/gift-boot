@@ -3,7 +3,6 @@ package com.epam.esm.jpa.impl;
 import com.epam.esm.jpa.TagRepository;
 import com.epam.esm.jpa.criteria.PaginationBuilder;
 import com.epam.esm.jpa.criteria.TagCriteriaBuilder;
-import com.epam.esm.jpa.exception.TagNotFoundException;
 import com.epam.esm.jpa.exception.UserNotFoundException;
 import com.epam.esm.model.dto.search.TagSearchDto;
 import com.epam.esm.model.entity.TagEntity;
@@ -11,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;

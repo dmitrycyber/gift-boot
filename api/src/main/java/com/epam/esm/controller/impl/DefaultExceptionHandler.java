@@ -1,6 +1,11 @@
 package com.epam.esm.controller.impl;
 
-import com.epam.esm.jpa.exception.*;
+import com.epam.esm.jpa.exception.DaoException;
+import com.epam.esm.jpa.exception.GiftNotFoundException;
+import com.epam.esm.jpa.exception.OrderNotFoundException;
+import com.epam.esm.jpa.exception.TagNotFoundException;
+import com.epam.esm.jpa.exception.UserNotFoundException;
+import com.epam.esm.jpa.exception.TagNameRegisteredException;
 import com.epam.esm.model.dto.ErrorResponse;
 import com.epam.esm.service.exception.ServiceException;
 import com.epam.esm.util.Status;

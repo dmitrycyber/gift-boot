@@ -9,7 +9,6 @@ import com.epam.esm.model.entity.GiftCertificateEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -49,7 +48,7 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
     @Override
     public GiftCertificateEntity findById(Long id) {
         GiftCertificateEntity giftCertificateEntity = entityManager.find(GiftCertificateEntity.class, id);
-        if (giftCertificateEntity == null){
+        if (giftCertificateEntity == null) {
             throw new UserNotFoundException(id.toString());
         }
         return giftCertificateEntity;
@@ -64,7 +63,7 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
     }
 
     @Override
-    public GiftCertificateEntity updateGift(GiftCertificateEntity giftCertificateEntity){
+    public GiftCertificateEntity updateGift(GiftCertificateEntity giftCertificateEntity) {
         return entityManager.merge(giftCertificateEntity);
     }
 

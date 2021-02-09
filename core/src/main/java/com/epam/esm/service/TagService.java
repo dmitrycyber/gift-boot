@@ -1,9 +1,7 @@
 package com.epam.esm.service;
 
-
 import com.epam.esm.model.dto.TagDto;
 import com.epam.esm.model.dto.search.TagSearchDto;
-
 import java.util.List;
 
 public interface TagService {

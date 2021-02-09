@@ -2,11 +2,9 @@ package com.epam.esm.jpa;
 
 import com.epam.esm.model.dto.search.TagSearchDto;
 import com.epam.esm.model.entity.TagEntity;
-
 import java.util.List;
 
 public interface TagRepository {
-
     /**
      * Find all tags
      * @return List TagEntity
@@ -60,5 +58,4 @@ public interface TagRepository {
      * @param userId user id
      */
     TagEntity findMostWidelyUsedUserTag(Long userId);
-
 }
