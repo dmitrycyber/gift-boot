@@ -69,10 +69,10 @@ public class TagControllerImpl implements TagController {
 
 
     @Override
-    @GetMapping("/user/{userId}")
+    @GetMapping("/user")
     @ResponseStatus(HttpStatus.OK)
-    public TagDto findMostWidelyUsedUserTag(@PathVariable Long userId) {
-        TagDto tagDto = tagService.findMostWidelyUsedUserTag(userId);
+    public TagDto findMostWidelyUsedUserTag() {
+        TagDto tagDto = tagService.findMostWidelyUsedUserTag();
         addSelfLinks(tagDto);
         return tagDto;
     }

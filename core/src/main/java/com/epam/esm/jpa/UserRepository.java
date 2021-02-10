@@ -27,4 +27,7 @@ public interface UserRepository {
      * if fount no users - return empty list
      */
     List<UserEntity> findAll(Integer pageNumber, Integer pageSize);
+
+
+    Long findUserIdWithMaxSumOrders();
 }

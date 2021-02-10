@@ -56,7 +56,6 @@ public interface TagService {
     /**
      * Find most widely used user tag
      * @return most widely user tag with the highest cost
-     * @param userId user id
      */
-    TagDto findMostWidelyUsedUserTag(Long userId);
+    TagDto findMostWidelyUsedUserTag();
 }

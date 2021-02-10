@@ -40,4 +40,15 @@ public class UserRepositoryImpl implements UserRepository {
         PaginationBuilder.addPagination(pageNumber, pageSize, query);
         return query.getResultList();
     }
+
+    @Override
+    public Long findUserIdWithMaxSumOrders() {
+        return entityManager.createQuery(
+                "SELECT o.userEntity.id FROM OrderEntity o " +
+                        "GROUP BY o.userEntity.id " +
+                        "ORDER BY sum(o.cost) DESC "
+                , Long.class)
+                .setMaxResults(1)
+                .getSingleResult();
+    }
 }

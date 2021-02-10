@@ -29,5 +29,5 @@ public interface TagController {
     void deleteTag(Long id);
 
     @ApiOperation(value = "Api v1. find most widely user tag with the highest cost")
-    TagDto findMostWidelyUsedUserTag(Long userId);
+    TagDto findMostWidelyUsedUserTag();
 }

@@ -85,7 +85,7 @@ public class TagRepositoryImpl implements TagRepository {
                         "JOIN gc.tagEntities te " +
                         "WHERE o.userEntity.id = :userId " +
                         "GROUP BY te.id " +
-                        "ORDER BY sum(o.cost) DESC "
+                        "ORDER BY te.id DESC "
                 , TagEntity.class)
                 .setParameter("userId", userId)
                 .setMaxResults(1)

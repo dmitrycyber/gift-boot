@@ -27,7 +27,8 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
 
     @Override
     public List<GiftCertificateEntity> findAll(Integer pageNumber, Integer pageSize) {
-        TypedQuery<GiftCertificateEntity> query = entityManager.createQuery("select giftCertificate from GiftCertificateEntity giftCertificate", GiftCertificateEntity.class);
+        TypedQuery<GiftCertificateEntity> query = entityManager.createQuery(
+                "select giftCertificate from GiftCertificateEntity giftCertificate", GiftCertificateEntity.class);
 
         PaginationBuilder.addPagination(pageNumber, pageSize, query);
 
@@ -57,8 +58,6 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
     @Override
     public GiftCertificateEntity createGift(GiftCertificateEntity giftCertificateEntity) {
         entityManager.persist(giftCertificateEntity);
-        log.info("SAVED ENTITY " + giftCertificateEntity);
-
         return giftCertificateEntity;
     }
 
