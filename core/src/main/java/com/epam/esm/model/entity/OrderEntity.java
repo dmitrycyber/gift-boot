@@ -17,7 +17,6 @@ import java.sql.Timestamp;
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "orders")

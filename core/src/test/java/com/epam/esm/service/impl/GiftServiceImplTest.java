@@ -1,4 +1,5 @@
 package com.epam.esm.service.impl;
+
 import com.epam.esm.jpa.GiftCertificateRepository;
 import com.epam.esm.jpa.TagRepository;
 import com.epam.esm.model.dto.GiftCertificateDto;
@@ -6,7 +7,6 @@ import com.epam.esm.model.dto.TagDto;
 import com.epam.esm.model.dto.search.GiftSearchDto;
 import com.epam.esm.model.entity.GiftCertificateEntity;
 import com.epam.esm.model.entity.TagEntity;
-import com.epam.esm.service.GiftService;
 import com.epam.esm.util.SearchConstants;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,9 +16,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,7 +24,6 @@ import java.util.Set;
 import java.util.stream.LongStream;
 
 @ExtendWith(MockitoExtension.class)
-@MockitoSettings(strictness = Strictness.LENIENT)
 class GiftServiceImplTest {
     @Mock
     private static GiftCertificateRepository giftCertificateRepository;

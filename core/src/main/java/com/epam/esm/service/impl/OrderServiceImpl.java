@@ -32,7 +32,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderDto> findByUserId(Long userId, Integer pageNumber, Integer pageSize) {
         List<OrderEntity> orderEntityList = orderRepository.findByUserId(userId, pageNumber, pageSize);
-
         return orderEntityList.stream()
                 .map(EntityConverter::convertOrderEntityToDto)
                 .collect(Collectors.toList());

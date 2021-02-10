@@ -23,7 +23,6 @@ class TagServiceImplTest {
     @InjectMocks
     private TagServiceImpl tagService;
 
-
     private Integer pageNumber;
     private Integer pageSize;
     private List<TagEntity> tagEntityList;
@@ -35,15 +34,17 @@ class TagServiceImplTest {
         tagEntityList = new ArrayList<>();
         tagEntityList.add(TagEntity.builder()
                 .id(1L)
-                .name("name1").build());
+                .name("name1")
+                .build());
         tagEntityList.add(TagEntity.builder()
                 .id(2L)
-                .name("name2").build());
+                .name("name2")
+                .build());
         tagEntityList.add(TagEntity.builder()
                 .id(3L)
-                .name("name3").build());
+                .name("name3")
+                .build());
     }
-
 
     @Test
     void getAllTags() {
@@ -77,7 +78,8 @@ class TagServiceImplTest {
         long id = 1L;
         Mockito.when(tagRepository.findTagById(Mockito.anyLong())).thenReturn(TagEntity.builder()
                 .id(id)
-                .name("name1").build());
+                .name("name1")
+                .build());
 
         TagDto tagById = tagService.getTagById(id);
 
@@ -89,7 +91,8 @@ class TagServiceImplTest {
     void getTagByName() {
         TagEntity tagEntity = TagEntity.builder()
                 .id(1L)
-                .name("name1").build();
+                .name("name1")
+                .build();
 
         Mockito.when(tagRepository.findTagByName(Mockito.anyString())).thenReturn(tagEntity);
         TagDto tagDto = tagService.getTagByName("name1");
@@ -102,7 +105,8 @@ class TagServiceImplTest {
         Mockito.when(tagRepository.createTag(Mockito.any(TagEntity.class))).thenReturn(tagEntityList.get(0));
 
         TagDto tagDto = tagService.createTag(TagDto.builder()
-                .name("name1").build());
+                .name("name1")
+                .build());
 
         Assertions.assertEquals(1L, tagDto.getId());
         Assertions.assertEquals("name1", tagDto.getName());

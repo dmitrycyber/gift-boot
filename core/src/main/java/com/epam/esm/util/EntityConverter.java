@@ -118,7 +118,6 @@ public class EntityConverter {
 
     public static OrderDto convertOrderEntityToDto(OrderEntity orderEntity){
         Timestamp purchaseDate = orderEntity.getPurchaseDate();
-
         return OrderDto.builder()
                 .id(orderEntity.getId())
                 .cost(orderEntity.getCost())
